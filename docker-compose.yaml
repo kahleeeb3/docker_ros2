@@ -1,0 +1,20 @@
+x-service: &base
+  image: test
+  network_mode: host
+  ipc: host
+  entrypoint: /ros_entrypoint.sh
+  volumes:
+    - .:/ros_ws
+  privileged: true
+
+services:
+
+  foxglove_bridge:
+    <<: *base
+    network_mode: bridge  # only in WSL
+    ports: ["8765:8765"]  # only in WSL
+    command: ros2 run foxglove_bridge foxglove_bridge
+
+  hello_world:
+    <<: *base
+    command: "ros2 topic pub /chatter std_msgs/msg/String '{data: Hello World}'"
