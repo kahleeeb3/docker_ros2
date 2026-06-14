@@ -16,6 +16,8 @@ I have provided a basic docker image. Build it using:
 docker compose build
 ```
 
+This will create an image with the name specified in the `.env` file.
+
 ## 3. Create Your Package
 Run this script to create a Python ROS 2 package:
 
@@ -25,8 +27,6 @@ Run this script to create a Python ROS 2 package:
 
 This will create a new package folder in your current directory with the package name specified in the `.env` file.
 
-This will create an image with the name specified in the `.env` file.
-
 ## 4. Build Your Workspace
 This runs only the `build_package` service which will create a docker volume with all of the workspace files.
 
@@ -34,15 +34,17 @@ This runs only the `build_package` service which will create a docker volume wit
 docker compose --profile build run --rm build_package
 ```
 
-When you need to rebuild the workspace, run this again. Also note that if you are not using WSL, you'll need to comment out lines in the `docker-compose.yaml` file that have the comment `# only in WSL`
+When you need to rebuild the workspace, run this again.
+
+> **Note:** If you are not using WSL, comment out the lines in `docker-compose.yaml` marked with `# only in WSL`.
 
 ## 5. Start Your Services
-
-I have created a service that will test your package to make sure everything is working and one that will publish "Hellow World". You should verify that you can see the "Hello World" message on the "/chatter" topic in foxglove.
 
 ```bash
 docker compose up
 ```
+
+This starts a service that tests your package and one that publishes "Hello World" to the `/chatter` topic. Verify that you can see the message in Foxglove.
 
 ## 6. Remove Everything
 Kill the running services with `Ctrl+C`. Then remove all containers and volumes using:
@@ -52,9 +54,9 @@ docker compose down -v
 ```
 
 ## 7. Git
-Dont forget to set your git username and email
+Don't forget to set your git username and email:
 
 ```bash
-git config user.name "Caleb Powell"
-git config user.email "powellcalebm@gmail.com"
+git config user.name "Your Name"
+git config user.email "your@email.com"
 ```
